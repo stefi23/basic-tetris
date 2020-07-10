@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // The Tetrominos
 
   const lTetromino = [
-    [1, witdh + 1, width * 2 + 1, 2],
+    [1, width + 1, width * 2 + 1, 2],
     [width, width + 1, width + 2, width * 2 + 2],
     [1, width + 1, width * 2 + 1, width * 2],
     [width, width * 2, width * 2 + 1, width * 2 + 2],
@@ -43,4 +43,62 @@ document.addEventListener("DOMContentLoaded", () => {
     [1, width + 1, width * 2 + 1, width * 3 + 1],
     [0, 1, 2, 3],
   ];
+
+  const theTetrominos = [
+    lTetromino,
+    zTetromino,
+    tTetromino,
+    oTetromino,
+    iTetromino,
+  ];
+
+  let random = Math.floor(Math.random() * theTetrominos.length);
+
+  console.log(random);
+  console.log(theTetrominos.length);
+
+  let currentPosition = 4;
+  let currentRotation = 0;
+  let current = theTetrominos[random][currentRotation];
+
+  // draw the Tetromino
+  function draw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.add("tetromino");
+    });
+  }
+
+  // undraw the Tetromino
+
+  function undraw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove("tetromino");
+    });
+  }
+
+  //make tetromino move down every second
+
+  timerId = setInterval(moveDown, 1000);
+
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+    freeze();
+  }
+
+  function freeze() {
+    if (
+      current.some((index) =>
+        squares[currentPosition + index + width].classList.contains("taken")
+      )
+    ) {
+      current.forEach((index) =>
+        squares[currentPosition + index].classList.add("taken")
+      );
+      random = Math.floor(Math.random() * theTetrominos.length);
+      currentPosition = 4;
+      draw();
+    }
+  }
 });
