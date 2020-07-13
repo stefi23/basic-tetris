@@ -54,9 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let random = Math.floor(Math.random() * theTetrominos.length);
 
-  console.log(random);
-  console.log(theTetrominos.length);
-
   let currentPosition = 4;
   let currentRotation = 0;
   let current = theTetrominos[random][currentRotation];
@@ -86,14 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 37) {
       moveLeft();
     } else if (e.keyCode === 38) {
-      //rotate()
+      rotate();
     } else if (e.keyCode === 39) {
       moveRight();
     } else if (e.keyCode === 40) {
       moveDown();
     }
   }
-  document.addEventListener("keyup", control);
+  document.addEventListener("keydown", control);
 
   function moveDown() {
     undraw();
@@ -156,6 +153,17 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPosition -= 1;
       }
     }
+    draw();
+  }
+  function rotate() {
+    undraw();
+    currentRotation++;
+    if (currentRotation === current.length) {
+      // if the current rotation = 4 reset it by making it 0
+      currentRotation = 0;
+    }
+    current = theTetrominos[random][currentRotation];
+
     draw();
   }
 });
