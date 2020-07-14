@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  justify-content: center;
 }
 
 .grid {
@@ -31,4 +32,16 @@
 .mini-grid div {
   height: 20px;
   width: 20px;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.center {
+  display: inline-block;
+}
+
+#start-button {
+  margin-bottom: 20px;
 }
