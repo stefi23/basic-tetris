@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
 
   const colors = [
-    "#FF0018",
-    "#FFA52C",
-    // "#FFFF41",
+    "#FF0018", //red
+    "#FFA52C", //orange
+    "#e6e600", //yellow
     "#008018",
     "#0000F9",
     "#86007D",
@@ -51,12 +51,20 @@ document.addEventListener("DOMContentLoaded", () => {
     [0, 1, 2, 3],
   ];
 
+  const sTetromino = [
+    [0, 1, width + 1, width + 2],
+    [1, width, width + 1, width * 2],
+    [0, 1, width + 1, width + 2],
+    [1, width, width + 1, width * 2],
+  ];
+
   const theTetrominos = [
     lTetromino,
     zTetromino,
     tTetromino,
     oTetromino,
     iTetromino,
+    sTetromino,
   ];
 
   let random = Math.floor(Math.random() * theTetrominos.length);
@@ -69,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     current.forEach((index) => {
       squares[currentPosition + index].classList.add("tetromino");
       squares[currentPosition + index].style.backgroundColor = colors[random];
+      squares[currentPosition + index].style.outline = "1px solid white";
     });
   }
 
@@ -76,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     current.forEach((index) => {
       squares[currentPosition + index].classList.remove("tetromino");
       squares[currentPosition + index].style.backgroundColor = "";
+      squares[currentPosition + index].style.outline = "";
     });
   }
 
@@ -178,12 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if ((P + 1) % width < 4) {
       //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).
       if (isAtRight()) {
+        console.log("inside At RIght");
         //use actual position to check if it's flipped over to right side
         currentPosition += 1; //if so, add one to wrap it back around
         checkRotatedPosition(P); //check again.  Pass position from start, since long block might need to move more.
       }
     } else if (P % width > 5) {
       if (isAtLeft()) {
+        console.log("inside At Left");
         currentPosition -= 1;
         checkRotatedPosition(P);
       }
@@ -211,10 +223,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // the Tetrominos without rotations
   const upNextTetrominoes = [
     [1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
-    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
+    [1, 2, displayWidth, displayWidth + 1], // zTetromino
     [1, displayWidth, displayWidth + 1, displayWidth + 2], //tTetromino
     [0, 1, displayWidth, displayWidth + 1], // oTetromino
     [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], // iTetromino
+    [
+      displayWidth + 1,
+      displayWidth + 2,
+      displayWidth * 2 + 2,
+      displayWidth * 2 + 3,
+    ], // sTetromino
   ];
 
   //display the shape in the mini-grid display
@@ -223,11 +241,14 @@ document.addEventListener("DOMContentLoaded", () => {
     displaySquares.forEach((square) => {
       square.classList.remove("tetromino");
       square.style.backgroundColor = "";
+      square.style.outline = "";
     });
     upNextTetrominoes[nextRandom].forEach((index) => {
       displaySquares[displayIndex + index].classList.add("tetromino");
       displaySquares[displayIndex + index].style.backgroundColor =
         colors[nextRandom];
+
+      displaySquares[displayIndex + index].style.outline = "1px solid white";
     });
   }
 
@@ -264,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
           squares[index].classList.remove("taken");
           squares[index].classList.remove("tetromino");
           squares[index].style.backgroundColor = "";
+          squares[index].style.outline = "";
         });
 
         const squaresRemoved = squares.splice(i, width);
