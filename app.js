@@ -7,14 +7,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let nextRandom = 0;
   let timerId;
   let score = 0;
+  scoreDisplay.innerHTML = score;
 
   const colors = [
     "#FF0018", //red
-    "#FFA52C", //orange
-    "#e6e600", //yellow
-    "#008018",
-    "#0000F9",
-    "#86007D",
+    "#ffa52c", //orange
+    "#ffff41", //yellow
+    "#008018", // green
+    "#0000F9", //blue
+    "#86007D", //purple
+  ];
+
+  const colorsBright = [
+    "#ffd8d8",
+    "#ffd8d8",
+    "#708090",
+    "#cfcfcf", //green
+    "#cfcfcf",
+    "#DCD5E2",
   ];
 
   const lTetromino = [
@@ -77,7 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
     current.forEach((index) => {
       squares[currentPosition + index].classList.add("tetromino");
       squares[currentPosition + index].style.backgroundColor = colors[random];
-      squares[currentPosition + index].style.outline = "1px solid white";
+      squares[
+        currentPosition + index
+      ].style.outline = `1px solid ${colorsBright[random]}`;
     });
   }
 
@@ -248,7 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
       displaySquares[displayIndex + index].style.backgroundColor =
         colors[nextRandom];
 
-      displaySquares[displayIndex + index].style.outline = "1px solid white";
+      displaySquares[
+        displayIndex + index
+      ].style.outline = `1px solid ${colorsBright[random]}`;
     });
   }
 
