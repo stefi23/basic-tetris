@@ -1,6 +1,6 @@
 # basic-tetris
 
-> Created a website with Vanilla Javascript, HTML and CSS on which you can play basic Tetris
+> Created a website with Vanilla Javascript, HTML and CSS on which you can play basic Tetris (for desktop).
 >
 > [Live Demo](https://stefi.codes/basic-tetris/)
 
