@@ -22,7 +22,7 @@ Decided to build this game in order to practice manipulating the DOM by using pu
 
 ![Design of the game](./GameDesign.png)
 
-I've leared how `some()` and `every()` works, how to get a random number within a certain range while using `Math.floor` with `Math.random()` and about `keyCode()` and this cool website [keycode.info](http://keycode.info/) which give you the code of any key you press.
+I've learned how `some()` and `every()` works and about `keyCode()` and this cool website [keycode.info](http://keycode.info/) which gives you the code of any key you press.
 
 ## Install and Play
 

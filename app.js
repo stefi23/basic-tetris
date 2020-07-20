@@ -147,13 +147,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function isAtRightEdge() {
+    return current.some((index) => (currentPosition + index + 1) % width === 0);
+  }
+
+  function isAtLeftEdge() {
+    return current.some((index) => (currentPosition + index) % width === 0);
+  }
+
   function moveLeft() {
     undraw();
-    const isAtLeftEdge = current.some(
-      (index) => (currentPosition + index) % width === 0
-    );
 
-    if (!isAtLeftEdge) {
+    if (!isAtLeftEdge()) {
       currentPosition -= 1;
 
       if (
@@ -169,11 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function moveRight() {
     undraw();
-    const isAtRightEdge = current.some(
-      (index) => (currentPosition + index) % width === width - 1
-    );
 
-    if (!isAtRightEdge) {
+    if (!isAtRightEdge()) {
       currentPosition += 1;
 
       if (
@@ -187,27 +189,17 @@ document.addEventListener("DOMContentLoaded", () => {
     draw();
   }
 
-  function isAtRight() {
-    return current.some((index) => (currentPosition + index + 1) % width === 0);
-  }
-
-  function isAtLeft() {
-    return current.some((index) => (currentPosition + index) % width === 0);
-  }
-
   function checkRotatedPosition(P) {
     P = P || currentPosition; //get current position.  Then, check if the piece is near the left side.
     if ((P + 1) % width < 4) {
       //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).
-      if (isAtRight()) {
-        console.log("inside At RIght");
+      if (isAtLeftEdge()) {
         //use actual position to check if it's flipped over to right side
         currentPosition += 1; //if so, add one to wrap it back around
         checkRotatedPosition(P); //check again.  Pass position from start, since long block might need to move more.
       }
     } else if (P % width > 5) {
-      if (isAtLeft()) {
-        console.log("inside At Left");
+      if (isAtRightEdge()) {
         currentPosition -= 1;
         checkRotatedPosition(P);
       }
@@ -272,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timerId = null;
     } else {
       draw();
-      timerId = setInterval(moveDown, 1000);
+      timerId = setInterval(moveDown, 3000);
       // nextRandom = Math.floor(Math.random() * theTetrominos.length);
       displayShape();
     }
